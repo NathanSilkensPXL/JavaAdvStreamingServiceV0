@@ -11,4 +11,8 @@ public enum Rating {
     Rating(int age){
         this.age = age;
     }
+
+    public int getAge() {
+        return age;
+    }
 }
