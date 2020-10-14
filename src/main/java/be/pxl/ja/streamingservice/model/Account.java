@@ -1,5 +1,6 @@
 package be.pxl.ja.streamingservice.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Account {
@@ -9,7 +10,10 @@ public class Account {
     private List<Profile> profiles;
     private PaymentInfo paymentInfo;
 
-    Account(){
+    public Account(String email, String password){
+        this.email = email;
+        this.password = password;
+        profiles = new ArrayList<>();
         profiles.add(new Profile("profile1", null));
     }
 
@@ -41,12 +45,8 @@ public class Account {
         this.streamingPlan = streamingPlan;
     }
 
-    public List<Profile> getProfiles() {
-        return profiles;
-    }
-
-    public void setProfiles(List<Profile> profiles) {
-        this.profiles = profiles;
+    public void addProfile(Profile profile) {
+        profiles.add(profile);
     }
 
     public PaymentInfo getPaymentInfo() {
@@ -55,5 +55,9 @@ public class Account {
 
     public void setPaymentInfo(PaymentInfo paymentInfo) {
         this.paymentInfo = paymentInfo;
+    }
+
+    public boolean verifyPassword(String password){
+        return true;
     }
 }
