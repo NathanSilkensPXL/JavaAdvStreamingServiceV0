@@ -1,14 +1,17 @@
 package be.pxl.ja.streamingservice.model;
 
+import java.sql.SQLOutput;
 import java.time.LocalDate;
 
-public class Movie extends Content {
+public class Movie extends Content implements Playable {
+    public static final int LONG_PLAYING_TIME = 2*60+15;
+
     private String title;
     private String director;
     private LocalDate releaseDate;
     private int duration;
     private Genre genre;
-    private Rating rating;
+    private Rating maturityRating;
 
     public Genre getGenre() {
         return genre;
@@ -19,11 +22,11 @@ public class Movie extends Content {
     }
 
     public Rating getRating() {
-        return rating;
+        return maturityRating;
     }
 
-    public void setRating(Rating rating) {
-        this.rating = rating;
+    public void setRating(Rating maturityRating) {
+        this.maturityRating = maturityRating;
     }
 
     public Movie(String title, Rating rating) {
@@ -59,18 +62,44 @@ public class Movie extends Content {
     }
 
     public void setDuration(int duration) {
-        this.duration = duration;
+        this.duration = Math.abs(duration);
+    }
+
+    public boolean isLongPlayingTime(){
+        return duration >= LONG_PLAYING_TIME;
+    }
+
+    public String getPlayingTime(){
+        if(duration == 0){
+            return "?";
+        }else if(duration <60){
+            return duration + " mins";
+        }else if((duration % 60) == 0){
+            return duration + " hrs";
+        }else{
+            return duration / 60 + " hrs " + duration % 60 + " mins";
+        }
     }
 
     @Override
     public String toString() {
         String string = "";
-        if(releaseDate != null){
+        if (releaseDate != null) {
             string = title + " " + getReleaseDate().getYear();
-        }else{
+        } else {
             string = title;
         }
         return string;
+    }
+
+    @Override
+    public void play() {
+        System.out.println("Playing " + this);
+    }
+
+    @Override
+    public void pause() {
+        System.out.println("Pausing " + this);
     }
 
 }

@@ -26,7 +26,7 @@ public class ContentDetailController {
 		titleLabel.setText(content.toString());
 		if (content instanceof Movie) {
 			Movie movie = (Movie) content;
-			durationLabel.setText(movie.getPlayingTime());
+			//durationLabel.setText(movie.getPlayingTime());
 
 			String icon = "mdi-comment-question-outline";
 			if (movie.getGenre() != null) {
